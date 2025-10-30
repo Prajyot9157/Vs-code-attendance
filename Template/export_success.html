@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Export Successful - Attendance System{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">Export Successful!</h4>
+            </div>
+            <div class="card-body text-center">
+                <div class="mb-4">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                </div>
+                <h5>Excel file generated successfully!</h5>
+                <p class="text-muted">Your attendance data has been exported to an Excel file.</p>
+                
+                <div class="mt-4">
+                    <a href="{{ url_for('download_excel', filename=filename) }}" class="btn btn-primary me-2">
+                        📥 Download Excel File
+                    </a>
+                    <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline-secondary">
+                        ← Back to Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
