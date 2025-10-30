@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="text-center">Login to Attendance System</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="user_type" class="form-label">Login As</label>
+                        <select class="form-select" id="user_type" name="user_type" required>
+                            <option value="">Select User Type</option>
+                            <option value="student">Student</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                </form>
+
+                <hr>
+                
+                <div class="mt-3">
+                    <h6>Sample Student Logins:</h6>
+                    <small class="text-muted">
+                        <strong>Class 11:</strong> prajyot11 / password123<br>
+                        <strong>Class 10:</strong> riya10 / password123<br>
+                        <strong>Class 12:</strong> amit12 / password123
+                    </small>
+                </div>
+
+                <div class="mt-2">
+                    <h6>Admin Login:</h6>
+                    <small class="text-muted">admin / admin123</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
