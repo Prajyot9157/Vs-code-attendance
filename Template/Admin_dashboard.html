@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - Attendance System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Admin Dashboard - Attendance Records</h4>
+            </div>
+            <div class="card-body">
+                <!-- Filters -->
+                <form class="row g-3 mb-4">
+                    <div class="col-md-3">
+                        <label class="form-label">Filter by Class</label>
+                        <select name="class_filter" class="form-select">
+                            <option value="">All Classes</option>
+                            <option value="10" {% if request.args.get('class_filter') == '10' %}selected{% endif %}>Class 10</option>
+                            <option value="11" {% if request.args.get('class_filter') == '11' %}selected{% endif %}>Class 11</option>
+                            <option value="12" {% if request.args.get('class_filter') == '12' %}selected{% endif %}>Class 12</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Filter by Subject</label>
+                        <select name="subject_filter" class="form-select">
+                            <option value="">All Subjects</option>
+                            {% for subject in subjects %}
+                                <option value="{{ subject }}" {% if request.args.get('subject_filter') == subject %}selected{% endif %}>
+                                    {{ subject }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Filter by Date</label>
+                        <input type="date" name="date_filter" class="form-control" 
+                               value="{{ request.args.get('date_filter', '') }}">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">&nbsp;</label>
+                        <div>
+                            <button type="submit" class="btn btn-outline-primary me-2">Apply Filters</button>
+                            <a href="{{ url_for('admin_dashboard') }}" class="btn btn-outline-secondary">Clear</a>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Export Button -->
+                <div class="mb-3">
+                    <a href="{{ url_for('export_excel') }}" class="btn btn-success">
+                        📊 Export to Excel
+                    </a>
+                </div>
+
+                <!-- Attendance Table -->
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Name</th>
+                                <th>Class</th>
+                                <th>Subject</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for record in attendance_records %}
+                            <tr>
+                                <td>{{ record.name }}</td>
+                                <td>{{ record.class }}</td>
+                                <td>{{ record.subject }}</td>
+                                <td>{{ record.date }}</td>
+                                <td>{{ record.time }}</td>
+                                <td>
+                                    <span class="badge bg-success">{{ record.status }}</span>
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="6" class="text-center">No attendance records found.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
